@@ -1,24 +1,32 @@
+import 'isomorphic-fetch';
 export default class extends React.Component {
+  static async getInitialProps() {
+    let req = await fetch
+    ('https://api.audioboom.com/channels/recommended')
+    let { body:channels } = await req.json()
+    return { channels: channels}
+  }
     render() {
+        const { channels } = this.props
         return <>
-          <h1>Hola Mundo</h1>
-          <p>Bienvenidos al curso de Next.js</p>
-          <img src="/static/platzi-logo.png" alt="logo de platzi"/>
-
+          <header>Podcasts</header>
+          { channels.map((channel) => (
+            <div>{ channel.title}</div>
+          ))}
           <style jsx>{`
-          h1 {
-            color: red;
-          }
-          :global(div p) {
-            color: green;
-          }
-          p {
-            color: green;
-          }`}</style>
+            header {
+              color: #fff;
+              background: #8756ca;
+              padding: 15px;
+              text-align: center;
+            }
+          `}</style>
 
           <style jsx global> {`
             body {
-              background: yellow;
+              margin: 0;
+              font-family: system-ui;
+              background: white;
             }
           }`}</style>
         </>
