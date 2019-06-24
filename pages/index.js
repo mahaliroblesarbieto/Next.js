@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+import Link from 'next/link'
 export default class extends React.Component {
   static async getInitialProps() {
     let req = await fetch
@@ -12,10 +13,12 @@ export default class extends React.Component {
           <header>Podcasts</header>
           <div className="channels">
           { channels.map((channel) => (
-            <div className="channel">
-              <img src={ channel.urls.logo_image.original } alt="imagen de la pelicula"/>
-              <h2>{ channel.title }</h2>
-            </div>
+            <Link href="/channel">
+              <a className="channel">
+                <img src={ channel.urls.logo_image.original } alt="imagen de la pelicula"/>
+                <h2>{ channel.title }</h2>
+              </a>
+            </Link>
           ))}
           </div>
           <style jsx>{`
