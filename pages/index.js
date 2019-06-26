@@ -1,17 +1,29 @@
 import 'isomorphic-fetch';
 import Link from 'next/link'
+import FormData from 'form-data'
+
+
 export default class extends React.Component {
   static async getInitialProps() {
+
+    let myData = new FormData()
+    myData.append('id', '148640034')
+    myData.append('password', '5720426')
     let req = await fetch
-    ('https://api.audioboom.com/channels/recommended')
-    let { body:channels } = await req.json()
-    return { channels: channels}
+    ('http://3.92.189.89/tpp_apps/index.php/api/login', {
+      method: 'post',
+      body: myData
+    })
+    console.log(req)
+    //let { body:channels } = await req.json()
+    return {}
   }
     render() {
-        const { channels } = this.props
+        //const { channels } = this.props
         return <>
           <header>Podcasts</header>
-          <div className="channels">
+          
+          {/* <div className="channels">
           { channels.map((channel) => (
             <Link href={`/channel?id=${ channel.id }`} prefetch>
               <a className="channel">
@@ -21,6 +33,7 @@ export default class extends React.Component {
             </Link>
           ))}
           </div>
+           */}
           <style jsx>{`
             header {
               color: #fff;
